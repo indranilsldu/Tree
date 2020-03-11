@@ -15,6 +15,18 @@ public:
     }
 };
 
+int search(Node* root, int valueToBeSearched)
+{
+    if(root==NULL)
+        return 0;
+    else if(root->data==valueToBeSearched)
+        return 1;
+    else if(valueToBeSearched<root->data)
+        search(root->left,valueToBeSearched);
+    else
+        search(root->right,valueToBeSearched);
+}
+
 void Preorder(Node* root)
 {
     if(root==NULL)
@@ -53,6 +65,7 @@ void Inorder(Node* root)
 
 int main()
 {
+    int valueToBeSearched;
     Node* a = NULL;
     a = new Node(25);
     a->left = new Node(15);
@@ -62,11 +75,20 @@ int main()
     a->right->left = new Node(30);
     a->right->right = new Node(60);
     Node* root = a;
+    //cout << a->left->data;
     cout << "Preorder traversal\n";
     Preorder(root);
     cout << "\nInorder traversal\n";
     Inorder(root);
     cout << "\nPostorder traversal\n";
     Postorder(root);
+    cout << "\nEnter value to be searched: ";
+    cin >> valueToBeSearched;
+    if(search(root,valueToBeSearched))
+        cout << "The tree contains the given value";
+    else
+        cout << "The tree does not contain the given value";
+    delete root;
+    delete a;
     return 0;
 }
